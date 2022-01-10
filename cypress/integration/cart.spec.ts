@@ -67,11 +67,10 @@ describe("Cart feature", () => {
           );
         });
     });
-    it("User can remove item from the cart", () => {
+    it("can remove item from the cart", () => {
       cy.addItemtoCart(3);
       cy.get(".shopping_cart > a").click();
       cy.get("[data-title=Delete]").click();
-
       cy.contains(
         ".alert.alert-warning",
         "Your shopping cart is empty."
