@@ -28,10 +28,22 @@ declare global {
   namespace Cypress {
     interface Chainable {
       /**
-       * Custom command whic helps login without needing to actually use UI
+       * Custom command which helps login without needing to actually use UI
        * @example cy.login('test@example.com','strong password')
        */
       login({ email, password }: ILogin): void;
+    }
+  }
+}
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      /**
+       * Custom command which helps to add product to the cart programatically
+       * @example cy.addItemtoCart(1)
+       */
+      addItemtoCart(productId: number): Chainable<any>;
     }
   }
 }
@@ -57,5 +69,26 @@ Cypress.Commands.add("login", ({ email, password }) => {
     const [name, value] = nameAndvalue.split("=");
 
     cy.setCookie(name, value).then(({ domain }) => cy.log(domain));
+  });
+});
+
+Cypress.Commands.add("addItemtoCart", (productId) => {
+  cy.window().then((win) => {
+    cy.request({
+      url: "/index.php?rand=1641843135054",
+      body: {
+        controller: "cart",
+        add: 1,
+        ajax: true,
+        qty: 1,
+        id_product: productId,
+        token: win.globalThis.static_token,
+      },
+      method: "POST",
+      form: true,
+    }).then(({ body }) => {
+      cy.reload();
+      return cy.wrap(body);
+    });
   });
 });

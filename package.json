@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "open": "yarn run cypress open"
+    "open": "yarn run cypress open",
+    "start": "yarn cypress run --config videoRecording=false"
   },
   "devDependencies": {
     "cypress": "^9.2.0",
