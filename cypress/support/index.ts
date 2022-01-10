@@ -20,8 +20,8 @@ import "./commands";
 // require('./commands')
 
 interface ILogin {
-  email: String;
-  password: String;
+  email: string;
+  password: string;
 }
 
 declare global {
@@ -37,11 +37,12 @@ declare global {
 }
 
 Cypress.Commands.add("login", ({ email, password }) => {
+  cy.log(email);
   cy.request({
     url: "/index.php?controller=authentication",
     body: {
-      email: "test-cy2@yopmail.com",
-      passwd: "123445",
+      email,
+      passwd: password,
       back: "my-account",
       SubmitLogin: "",
     },

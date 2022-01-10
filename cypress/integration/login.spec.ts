@@ -15,12 +15,9 @@ describe("Login feature", () => {
   });
   context("Given the user is logged in", () => {
     before(() => {
-      cy.fixture("user.json").as("user");
-      cy.get<{ email: string; password: string }>("@user").then(
-        ({ email, password }) => {
-          cy.login({ email, password });
-        }
-      );
+      cy.fixture("user.json").then(({ user }) => {
+        cy.login(user);
+      });
       cy.visit("/index.php");
     });
     it("can log out", () => {
