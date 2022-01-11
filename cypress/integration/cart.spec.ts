@@ -26,7 +26,8 @@ describe("Cart feature", () => {
           cy.get(".price.product-price").eq(0).invoke("text").as("price");
           cy.get('[title="Add to cart"]').click();
         });
-      cy.get(".shopping_cart > a").click();
+      cy.get("#layer_cart", { timeout: 10000 }).should("be.visible");
+      cy.get(".shopping_cart > a").click({ force: true });
       cy.get(".cart_description a")
         .eq(0)
         .invoke("text")
