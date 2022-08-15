@@ -1,13 +1,11 @@
 /// <reference types="cypress" />
+
 describe("Core elements visibility", () => {
+  const user = Cypress.env("user");
+
   context("Given the user is on home page", () => {
     before(() => {
-      cy.fixture("user.json").as("user");
-      cy.get<{ email: string; password: string }>("@user").then(
-        ({ email, password }) => {
-          cy.login({ email, password });
-        }
-      );
+      cy.login(user);
       cy.visit("/index.php");
     });
     it("should see core elements of the home page", () => {

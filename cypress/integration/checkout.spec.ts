@@ -1,11 +1,10 @@
 /// <reference types="cypress" />
 
 describe("Checkout feature", () => {
+  const user = Cypress.env("user");
   context("Given the user is logged in", () => {
     before(() => {
-      cy.fixture("user.json").then(({ user }) => {
-        cy.login(user);
-      });
+      cy.login(user);
       cy.visit("/index.php");
       cy.addItemtoCart(5);
     });
